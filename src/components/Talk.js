@@ -10,7 +10,7 @@ import bot from "../assets/img/walle.jpg";
 import woman from "../assets/img/woman.png";
 import man from "../assets/img/man.png";
 
-const BASE_URL = "http://localhost:3000/";
+const BASE_URL = "https://skynet-back-api.herokuapp.com/";
 
 const Talk = () => {
   const { username, gender } = useContext(UserContext);
