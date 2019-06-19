@@ -10,6 +10,8 @@ import bot from "../assets/img/walle.jpg";
 import woman from "../assets/img/woman.png";
 import man from "../assets/img/man.png";
 
+const BASE_URL = "http://localhost:3000/";
+
 const Talk = () => {
   const { username, gender } = useContext(UserContext);
   const pic = usePic(gender === "female" ? woman : man);
@@ -22,10 +24,25 @@ const Talk = () => {
     },
     [username]
   );
-  const handleNewUserMessage = newMessage => {
+
+  const handleNewUserMessage = async newMessage => {
     console.log(`New message incomig! ${newMessage}`);
 
-    addResponseMessage("hello");
+    try {
+      const res = await fetch(`${BASE_URL}talk`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: newMessage })
+      }).then(res => res.json());
+
+      console.log(res);
+      addResponseMessage(res.res);
+    } catch (err) {
+      console.log(err);
+    }
+
     // Now send the message throught the backend API
   };
 
